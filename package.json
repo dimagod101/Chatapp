@@ -1,0 +1,4 @@
+npm install
+"scripts": {
+  "start": "node server.js"
+}
