@@ -5,26 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat</title>
 
-    <script defer src="script.js"></script>
-
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #messages { width: 80%; max-width: 500px; margin: 20px auto; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
-        input, button { margin: 5px; padding: 10px; }
-    </style>
-</head>
-<body>
-    <h2>Simple Chat</h2>
-    <div id="messages"></div>
-    <input type="text" id="username" placeholder="Enter your username">
-    <input type="text" id="message" placeholder="Type a message">
-    <button onclick="sendMessage()">Send</button>
-
+    <!-- Firebase SDK imports -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
       import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-      // Firebase config (use your actual credentials here)
       const firebaseConfig = {
         apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
         authDomain: "messagingapp-9bac7.firebaseapp.com",
@@ -39,9 +24,24 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
 
-      // Export the db object so it can be used in script.js
+      // Expose db to global so script.js can access it
       window.db = db;
     </script>
 
+    <!-- Link to your custom script -->
+    <script defer src="script.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #messages { width: 80%; max-width: 500px; margin: 20px auto; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
+        input, button { margin: 5px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Simple Chat</h2>
+    <div id="messages"></div>
+    <input type="text" id="username" placeholder="Enter your username">
+    <input type="text" id="message" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
 </body>
 </html>
