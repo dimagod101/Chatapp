@@ -1,3 +1,6 @@
+// Import Firebase modules
+import { ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
 // DOM elements
 const messagesDiv = document.getElementById("messages");
 const usernameInput = document.getElementById("username");
@@ -12,7 +15,7 @@ function sendMessage() {
         const formattedTime = `${timestamp.getMonth() + 1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
 
         // Push message to Firebase with a unique key
-        const messageRef = push(ref(window.db, 'messages'), {
+        push(ref(window.db, 'messages'), {
             username,
             message,
             time: formattedTime
@@ -22,8 +25,6 @@ function sendMessage() {
     }
 }
 
-import { remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"; 
-
 // Function to delete a message
 function deleteMessage(messageId) {
     const messageRef = ref(window.db, `messages/${messageId}`);
@@ -31,8 +32,6 @@ function deleteMessage(messageId) {
         remove(messageRef) // Correct Firebase remove function
             .then(() => console.log("Message deleted"))
             .catch(error => console.error("Error deleting message:", error));
-    }
-}
     }
 }
 
