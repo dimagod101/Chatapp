@@ -3,6 +3,9 @@ const messagesDiv = document.getElementById("messages");
 const usernameInput = document.getElementById("username");
 const messageInput = document.getElementById("message");
 
+// Initialize Firebase (it's already loaded from the CDN)
+const database = firebase.database();
+
 // Function to send message
 function sendMessage() {
     const username = usernameInput.value.trim();
@@ -12,7 +15,7 @@ function sendMessage() {
         const formattedTime = `${timestamp.getMonth()+1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
 
         // Using Firebase Realtime Database to push message data
-        push(ref(window.db, "messages"), {
+        database.ref('messages').push({
             username,
             message,
             time: formattedTime
@@ -23,7 +26,7 @@ function sendMessage() {
 }
 
 // Function to update messages in real-time
-onValue(ref(window.db, "messages"), (snapshot) => {
+database.ref('messages').on('value', (snapshot) => {
     messagesDiv.innerHTML = '';  // Clear existing messages
     snapshot.forEach(childSnapshot => {
         const data = childSnapshot.val();
