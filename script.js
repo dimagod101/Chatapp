@@ -1,18 +1,10 @@
-// Replace with your Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
-    authDomain: "messagingapp-9bac7.firebaseapp.com",
-    databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/",
-    projectId: "messagingapp-9bac7",
-    storageBucket: "messagingapp-9bac7.firebasestorage.app",
-    messagingSenderId: "369463204028",
-    appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
-};
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
+// DOM elements
 const messagesDiv = document.getElementById("messages");
 const usernameInput = document.getElementById("username");
 const messageInput = document.getElementById("message");
@@ -25,7 +17,7 @@ function sendMessage() {
         const timestamp = new Date();
         const formattedTime = `${timestamp.getMonth()+1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
 
-        db.ref("messages").push({
+        push(ref(db, "messages"), {
             username,
             message,
             time: formattedTime
@@ -36,10 +28,13 @@ function sendMessage() {
 }
 
 // Function to update messages in real-time
-db.ref("messages").on("child_added", (snapshot) => {
-    const data = snapshot.val();
-    const messageElement = document.createElement("p");
-    messageElement.textContent = `${data.username}: "${data.message}" , ${data.time}`;
-    messagesDiv.appendChild(messageElement);
+onValue(ref(db, "messages"), (snapshot) => {
+    messagesDiv.innerHTML = '';  // Clear existing messages
+    snapshot.forEach(childSnapshot => {
+        const data = childSnapshot.val();
+        const messageElement = document.createElement("p");
+        messageElement.textContent = `${data.username}: "${data.message}" , ${data.time}`;
+        messagesDiv.appendChild(messageElement);
+    });
     messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
 });
