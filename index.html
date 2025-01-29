@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat</title>
 
-    <!-- Firebase SDK imports -->
+    <!-- Firebase SDK imports (module type) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
       import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
+      // Firebase config (use your actual credentials here)
       const firebaseConfig = {
         apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
         authDomain: "messagingapp-9bac7.firebaseapp.com",
@@ -28,9 +29,6 @@
       window.db = db;
     </script>
 
-    <!-- Link to your custom script -->
-    <script defer src="script.js"></script>
-
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #messages { width: 80%; max-width: 500px; margin: 20px auto; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
@@ -43,5 +41,8 @@
     <input type="text" id="username" placeholder="Enter your username">
     <input type="text" id="message" placeholder="Type a message">
     <button onclick="sendMessage()">Send</button>
+
+    <!-- Link to your custom script (load after Firebase initialization) -->
+    <script defer src="script.js"></script>
 </body>
 </html>
