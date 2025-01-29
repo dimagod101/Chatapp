@@ -1,9 +1,3 @@
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
 // DOM elements
 const messagesDiv = document.getElementById("messages");
 const usernameInput = document.getElementById("username");
@@ -17,7 +11,8 @@ function sendMessage() {
         const timestamp = new Date();
         const formattedTime = `${timestamp.getMonth()+1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
 
-        push(ref(db, "messages"), {
+        // Using Firebase Realtime Database to push message data
+        push(ref(window.db, "messages"), {
             username,
             message,
             time: formattedTime
@@ -28,7 +23,7 @@ function sendMessage() {
 }
 
 // Function to update messages in real-time
-onValue(ref(db, "messages"), (snapshot) => {
+onValue(ref(window.db, "messages"), (snapshot) => {
     messagesDiv.innerHTML = '';  // Clear existing messages
     snapshot.forEach(childSnapshot => {
         const data = childSnapshot.val();
