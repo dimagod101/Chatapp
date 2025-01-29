@@ -5,29 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat</title>
 
-    <!-- Firebase SDK imports (module type) -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-      import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-
-      // Firebase config (use your actual credentials here)
-      const firebaseConfig = {
-        apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
-        authDomain: "messagingapp-9bac7.firebaseapp.com",
-        databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
-        projectId: "messagingapp-9bac7",
-        storageBucket: "messagingapp-9bac7.firebasestorage.app",
-        messagingSenderId: "369463204028",
-        appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-
-      // Expose db to global so script.js can access it
-      window.db = db;
-    </script>
+    <!-- Firebase SDK CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
 
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -42,7 +22,25 @@
     <input type="text" id="message" placeholder="Type a message">
     <button onclick="sendMessage()">Send</button>
 
-    <!-- Link to your custom script (load after Firebase initialization) -->
+    <!-- Firebase initialization script -->
+    <script>
+        // Your Firebase configuration (replace with your actual Firebase config values)
+        const firebaseConfig = {
+            apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
+        authDomain: "messagingapp-9bac7.firebaseapp.com",
+        databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
+        projectId: "messagingapp-9bac7",
+        storageBucket: "messagingapp-9bac7.firebasestorage.app",
+        messagingSenderId: "369463204028",
+        appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
+
+    <!-- Link to your custom script -->
     <script defer src="script.js"></script>
 </body>
 </html>
