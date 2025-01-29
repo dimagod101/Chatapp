@@ -22,11 +22,17 @@ function sendMessage() {
     }
 }
 
+import { remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"; 
+
 // Function to delete a message
 function deleteMessage(messageId) {
     const messageRef = ref(window.db, `messages/${messageId}`);
     if (confirm("Are you sure you want to delete this message?")) {
-        window.remove(messageRef); // Remove from Firebase
+        remove(messageRef) // Correct Firebase remove function
+            .then(() => console.log("Message deleted"))
+            .catch(error => console.error("Error deleting message:", error));
+    }
+}
     }
 }
 
