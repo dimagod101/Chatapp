@@ -5,9 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat</title>
 
-    <!-- Firebase SDK CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+    <!-- Firebase SDK using modules -->
+    <script type="module">
+        // Import necessary Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        // Firebase configuration (replace with your own)
+        const firebaseConfig = {
+            apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
+            authDomain: "messagingapp-9bac7.firebaseapp.com",
+            databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
+            projectId: "messagingapp-9bac7",
+            storageBucket: "messagingapp-9bac7.firebasestorage.app",
+            messagingSenderId: "369463204028",
+            appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Expose db and other Firebase methods globally for script.js
+        window.db = db;
+        window.ref = ref;
+        window.push = push;
+        window.onValue = onValue;
+    </script>
 
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -22,25 +46,7 @@
     <input type="text" id="message" placeholder="Type a message">
     <button onclick="sendMessage()">Send</button>
 
-    <!-- Firebase initialization script -->
-    <script>
-        // Your Firebase configuration (replace with your actual Firebase config values)
-        const firebaseConfig = {
-            apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
-        authDomain: "messagingapp-9bac7.firebaseapp.com",
-        databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
-        projectId: "messagingapp-9bac7",
-        storageBucket: "messagingapp-9bac7.firebasestorage.app",
-        messagingSenderId: "369463204028",
-        appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-    </script>
-
-    <!-- Link to your custom script -->
+    <!-- Link to your custom script.js -->
     <script defer src="script.js"></script>
 </body>
 </html>
