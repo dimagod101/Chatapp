@@ -2,7 +2,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
     authDomain: "messagingapp-9bac7.firebaseapp.com",
-    databaseURL: "YOUR_DATABASE_URL",
+    databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/",
     projectId: "messagingapp-9bac7",
     storageBucket: "messagingapp-9bac7.firebasestorage.app",
     messagingSenderId: "369463204028",
