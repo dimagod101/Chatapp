@@ -41,9 +41,9 @@ function sendMessage() {
     }
 }
 
-// Function to delete a message (Fixed)
+// Function to delete a message
 function deleteMessage(messageId) {
-    const messageRef = ref(db, `messages/${messageId}`); // Use `db`, not `window.db`
+    const messageRef = ref(db, `messages/${messageId}`);
     if (confirm("Are you sure you want to delete this message?")) {
         remove(messageRef)
             .then(() => console.log("Message deleted successfully"))
@@ -73,3 +73,7 @@ onValue(ref(db, 'messages'), (snapshot) => {
     });
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
+
+// Make functions accessible from HTML
+window.sendMessage = sendMessage;
+window.deleteMessage = deleteMessage;
