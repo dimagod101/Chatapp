@@ -54,23 +54,28 @@ function deleteMessage(messageId) {
 }
 
 // Function to update messages in real-time
-onValue(ref(window.db, 'messages'), (snapshot) => {
-    messagesDiv.innerHTML = '';  // Clear existing messages
+onValue(ref(db, 'messages'), (snapshot) => {
+    messagesDiv.innerHTML = '';  
     snapshot.forEach(childSnapshot => {
-        const messageId = childSnapshot.key; // Firebase message ID
+        const messageId = childSnapshot.key;
         const data = childSnapshot.val();
         
-        // Create message element
         const messageElement = document.createElement("p");
         messageElement.innerHTML = `${data.username}: "${data.message}" , ${data.time} `;
 
-        // Add delete button only for the user who sent the message
         if (data.username === usernameInput.value.trim()) {
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "❌";
             deleteButton.style.marginLeft = "10px";
             deleteButton.onclick = () => deleteMessage(messageId);
             messageElement.appendChild(deleteButton);
+        }
+
+        messagesDiv.appendChild(messageElement);
+    });
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
         }
 
         messagesDiv.appendChild(messageElement);
