@@ -1,5 +1,22 @@
 // Import Firebase modules
-import { ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
+    authDomain: "messagingapp-9bac7.firebaseapp.com",
+    databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
+    projectId: "messagingapp-9bac7",
+    storageBucket: "messagingapp-9bac7.firebasestorage.app",
+    messagingSenderId: "369463204028",
+    appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+window.db = db; // Make database globally accessible
 
 // DOM elements
 const messagesDiv = document.getElementById("messages");
@@ -27,11 +44,12 @@ function sendMessage() {
 
 // Function to delete a message (Fixed)
 function deleteMessage(messageId) {
-    const messageRef = ref(window.db, `messages/${messageId}`);
+    const messageRef = ref(db, `messages/${messageId}`); // Use `db`, not `window.db`
     if (confirm("Are you sure you want to delete this message?")) {
-        remove(messageRef)  // Correct Firebase remove function
+        remove(messageRef)
             .then(() => console.log("Message deleted successfully"))
             .catch(error => console.error("Error deleting message:", error));
+
     }
 }
 
