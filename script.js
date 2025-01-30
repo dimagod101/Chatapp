@@ -4,19 +4,18 @@ import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com
 
 // Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y",
-    authDomain: "messagingapp-9bac7.firebaseapp.com",
-    databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL
-    projectId: "messagingapp-9bac7",
-    storageBucket: "messagingapp-9bac7.firebasestorage.app",
-    messagingSenderId: "369463204028",
-    appId: "1:369463204028:web:a932d813be7ac41f5b98b9"
+    apiKey: "AIzaSyC72WABeQ2e117WwxS7BAs_L1A2cIo0u0Y", 
+    authDomain: "messagingapp-9bac7.firebaseapp.com", 
+    databaseURL: "https://messagingapp-9bac7-default-rtdb.firebaseio.com/", // <-- Use your actual database URL 
+    projectId: "messagingapp-9bac7", 
+    storageBucket: "messagingapp-9bac7.firebasestorage.app", 
+    messagingSenderId: "369463204028", 
+    appId: "1:369463204028:web:a932d813be7ac41f5b98b9" 
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-window.db = db; // Make database globally accessible
 
 // DOM elements
 const messagesDiv = document.getElementById("messages");
@@ -32,7 +31,7 @@ function sendMessage() {
         const formattedTime = `${timestamp.getMonth() + 1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
 
         // Push message to Firebase with a unique key
-        push(ref(window.db, 'messages'), {
+        push(ref(db, 'messages'), {
             username,
             message,
             time: formattedTime
@@ -49,7 +48,6 @@ function deleteMessage(messageId) {
         remove(messageRef)
             .then(() => console.log("Message deleted successfully"))
             .catch(error => console.error("Error deleting message:", error));
-
     }
 }
 
@@ -74,11 +72,4 @@ onValue(ref(db, 'messages'), (snapshot) => {
         messagesDiv.appendChild(messageElement);
     });
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
-});
-
-        }
-
-        messagesDiv.appendChild(messageElement);
-    });
-    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
 });
