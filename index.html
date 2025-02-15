@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +8,17 @@
 </head>
 <body>
     <h1>Simple Chat</h1>
-    <div id="messages"></div>
-    <input type="text" id="username" placeholder="Enter your username">
-    <input type="text" id="message" placeholder="Type a message">
-    <button class="send-button" onclick="sendMessage()">Send</button>
+    
+    <div class="chat-container">
+        <div id="messages" class="chat-box"></div>
 
-    <!-- Correctly load script.js -->
+        <div class="input-area">
+            <input type="text" id="username" placeholder="Enter your username">
+            <input type="text" id="message" placeholder="Type a message">
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script type="module" src="script.js"></script>
 </body>
 </html>
