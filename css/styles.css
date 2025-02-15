@@ -1,4 +1,3 @@
-
 /* General styling */
 body {
     font-family: Arial, sans-serif;
@@ -6,9 +5,17 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+/* Title styling */
+h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /* Chat container */
@@ -18,6 +25,8 @@ body {
     box-shadow: 0px 4px 10px #edf1f2;
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Messages section */
@@ -28,25 +37,63 @@ body {
     padding: 10px;
     background: white;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* Message styling */
-p {
+/* Individual message styling */
+.message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 8px;
-    margin: 5px 0;
     border-radius: 5px;
     background: #edf1f2;
+    margin-bottom: 5px;
 }
 
+/* Input fields */
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Input focus effect */
+input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+/* Buttons */
 button {
-    background: #ff4d4d;
-    color: white;
+    width: 100%;
+    padding: 10px;
     border: none;
-    padding: 5px 8px;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
+/* Send button styling */
+.send-button {
+    background: #007bff;
+    color: white;
+    margin-top: 5px;
+}
+
+.send-button:hover {
+    background: #0056b3;
+}
+
+/* Delete button */
+.delete-button {
+    background: #ff4d4d;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
+.delete-button:hover {
     background: #cc0000;
 }
