@@ -53,7 +53,7 @@ h1 {
 
 /* Input fields */
 input[type="text"] {
-    width: calc(100% - 20px);
+    width: 78%;
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
@@ -68,7 +68,7 @@ input[type="text"]:focus {
 
 /* Buttons */
 button {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     border: none;
     border-radius: 5px;
