@@ -77,6 +77,7 @@ button {
 
 /* Send button styling */
 .send-button {
+    width: 80%;
     background: #007bff;
     color: white;
     margin-top: 5px;
