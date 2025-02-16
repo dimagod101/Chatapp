@@ -1,38 +1,10 @@
-// Save username to localStorage
-localStorage.setItem("username", username);
-
-// Load the saved username when the page loads
+// Load saved username when the page loads
 window.onload = function() {
     const savedUsername = localStorage.getItem("username");
     if (savedUsername) {
-        document.getElementById("username").value = savedUsername; // ✅ Correctly setting value
+        document.getElementById("username").value = savedUsername; // ✅ Set only the value
     }
 };
-
-// Function to send a message
-function sendMessage() {
-    const usernameInput = document.getElementById("username"); 
-    const messageInput = document.getElementById("message");
-
-    const username = usernameInput.value.trim(); // ✅ Get the value
-    const message = messageInput.value.trim();
-
-    if (username && message) {
-        localStorage.setItem("username", username); // ✅ Store username in localStorage
-
-        const timestamp = new Date();
-        const formattedTime = `${timestamp.getMonth() + 1}/${timestamp.getDate()} ${timestamp.getHours()}:${timestamp.getMinutes()}`;
-
-        push(ref(window.db, 'messages'), {
-            username,
-            message,
-            time: formattedTime
-        });
-
-        messageInput.value = ""; // Clear input
-    }
-}
-
 
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
@@ -56,15 +28,23 @@ const messagesRef = ref(db, "messages");
 
 // Send message function
 function sendMessage() {
-    const username = document.getElementById("username").value.trim();
-    const message = document.getElementById("message").value.trim();
+    const usernameInput = document.getElementById("username");
+    const messageInput = document.getElementById("message");
+
+    const username = usernameInput.value.trim();
+    const message = messageInput.value.trim();
+
     if (username && message) {
+        // ✅ Save username ONLY when a message is sent
+        localStorage.setItem("username", username);
+
         push(messagesRef, { 
             username, 
             message, 
             time: new Date().toLocaleString() 
         });
-        document.getElementById("message").value = ""; // Clear input
+
+        messageInput.value = ""; // Clear input
     }
 }
 
