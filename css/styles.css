@@ -116,6 +116,8 @@ button {
 .DollarsImg {
     width: 20%;
     margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 
