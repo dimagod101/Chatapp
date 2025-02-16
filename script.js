@@ -1,3 +1,14 @@
+// Save username to localStorage
+localStorage.setItem("username", username);
+
+// Load username when page loads
+window.onload = function() {
+    const savedUsername = localStorage.getItem("username");
+    if (savedUsername) {
+        document.getElementById("username").value = savedUsername;
+    }
+};
+
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
