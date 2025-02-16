@@ -1,3 +1,31 @@
+const correctPassword = "Appicalat7&"; // Change this to your actual password
+
+// Check if the user already entered the password
+window.onload = function() {
+    const passwordEntered = localStorage.getItem("passwordEntered");
+    if (passwordEntered === "true") {
+        document.getElementById("password-screen").classList.add("hidden");
+        document.getElementById("chat-screen").classList.remove("hidden");
+    }
+};
+
+// Password check function
+function checkPassword() {
+    const password = document.getElementById("password-input").value.trim();
+
+    if (password === correctPassword) {
+        localStorage.setItem("passwordEntered", "true");
+
+        document.getElementById("password-screen").classList.add("hidden");
+        document.getElementById("chat-screen").classList.remove("hidden");
+    } else {
+        alert("Incorrect password. Try again.");
+    }
+}
+
+// Make function global
+window.checkPassword = checkPassword;
+
 // Load saved username when page loads
 window.onload = function() {
     const savedUsername = localStorage.getItem("username");
