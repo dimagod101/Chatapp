@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Correct password
-const correctPassword = "secret123"; 
+const correctPassword = "Appicalat7&"; 
 
 // Function to check password
 function checkPassword() {
