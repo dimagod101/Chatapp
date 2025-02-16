@@ -116,3 +116,10 @@ button {
 .DollarsImg {
     width: 25%;
 }
+
+.teko-DollarsTxt {
+  font-family: "Teko", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
