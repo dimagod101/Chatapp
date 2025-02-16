@@ -49,17 +49,27 @@ window.sendMessage = function () {
 // Listen for new messages
 onValue(messagesRef, (snapshot) => {
     const messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML = "";
+    messagesDiv.innerHTML = ""; // Clear messages
 
     snapshot.forEach(childSnapshot => {
         const messageId = childSnapshot.key;
         const data = childSnapshot.val();
 
+        // Create message element
         const messageElement = document.createElement("p");
         messageElement.textContent = `${data.username}: "${data.message}" , ${data.time}`;
+
+        // If the user sent the message, add a delete button
+        if (data.username === document.getElementById("username").value.trim()) {
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "❌";
+            deleteButton.style.marginLeft = "10px";
+            deleteButton.onclick = () => deleteMessage(messageId);
+            messageElement.appendChild(deleteButton);
+        }
 
         messagesDiv.appendChild(messageElement);
     });
 
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
 });
