@@ -1,10 +1,15 @@
-// Load saved username when the page loads
+// Load saved username when page loads
 window.onload = function() {
     const savedUsername = localStorage.getItem("username");
     if (savedUsername) {
-        document.getElementById("username").value = savedUsername; // ✅ Set only the value
+        document.getElementById("username").value = savedUsername;
     }
 };
+
+// Save username whenever user changes it
+document.getElementById("username").addEventListener("input", function() {
+    localStorage.setItem("username", this.value);
+});
 
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
@@ -26,29 +31,21 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const messagesRef = ref(db, "messages");
 
-// Send message function
+// Function to send a message
 function sendMessage() {
-    const usernameInput = document.getElementById("username");
-    const messageInput = document.getElementById("message");
-
-    const username = usernameInput.value.trim();
-    const message = messageInput.value.trim();
-
+    const username = document.getElementById("username").value.trim();
+    const message = document.getElementById("message").value.trim();
     if (username && message) {
-        // ✅ Save username ONLY when a message is sent
-        localStorage.setItem("username", username);
-
         push(messagesRef, { 
             username, 
             message, 
             time: new Date().toLocaleString() 
         });
-
-        messageInput.value = ""; // Clear input
+        document.getElementById("message").value = ""; // Clear input
     }
 }
 
-// Delete message function
+// Function to delete a message
 function deleteMessage(messageId) {
     const messageRef = ref(db, `messages/${messageId}`);
     if (confirm("Are you sure you want to delete this message?")) {
