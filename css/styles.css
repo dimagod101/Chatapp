@@ -19,7 +19,7 @@ h1 {
     font-style: normal;
     color: white;
     text-align: center;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-size: 300%
 }
 
@@ -117,9 +117,4 @@ button {
     margin-bottom: 5%;
 }
 
-.teko-DollarsTxt {
-  font-family: "Teko", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
+
