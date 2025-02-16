@@ -44,6 +44,7 @@ h1 {
 
 /* Individual message styling */
 .message {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
