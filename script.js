@@ -34,6 +34,7 @@ function showChatScreen() {
 window.sendMessage = function () {
     const username = document.getElementById("username").value.trim();
     const message = document.getElementById("message").value.trim();
+
     if (username && message) {
         push(messagesRef, { 
             username, 
@@ -43,6 +44,7 @@ window.sendMessage = function () {
         document.getElementById("message").value = ""; // Clear input
     }
 };
+
 
 // Listen for new messages
 onValue(messagesRef, (snapshot) => {
