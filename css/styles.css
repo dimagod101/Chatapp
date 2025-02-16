@@ -13,7 +13,7 @@ body {
 
 /* Title styling */
 h1 {
-    font-family: "Teko", serif;
+    font-family: "Teko", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -116,7 +116,7 @@ button {
 }
 
 .teko-DollarsTxt {
-  font-family: "Teko", serif;
+  font-family: "Teko", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
