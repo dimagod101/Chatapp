@@ -52,7 +52,7 @@ h1 {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     padding: 8px;
     border-radius: 5px;
     background: #edf1f2;
@@ -138,3 +138,9 @@ h2 {
     margin-bottom: 3%;
     font-size: 300%
 }
+.password {
+    width: 30;
+    align-seld: center;
+}
+
+    
