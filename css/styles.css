@@ -19,7 +19,8 @@ h1 {
     font-style: normal;
     color: white;
     text-align: center;
-    margin-bottom: 5%;
+    margin-top: 30px;
+    margin-bottom: 3%;
     font-size: 300%
 }
 
@@ -114,7 +115,7 @@ button {
 
 .DollarsImg {
     width: 20%;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 
