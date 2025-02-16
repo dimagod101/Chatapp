@@ -1,6 +1,9 @@
 /* General styling */ 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Teko", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
     background-color: #040b1c;
     margin: 0;
     padding: 0;
