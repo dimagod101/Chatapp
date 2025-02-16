@@ -95,6 +95,7 @@ button {
     background: #007bff;
     color: white;
     margin-top: 5px;
+    align-self: center;
 }
 
 .send-button:hover {
