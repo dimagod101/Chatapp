@@ -7,13 +7,26 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="css/favicon_w3cub/favicon.ico">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .hidden { display: none; }
+        .login-container, .chat-container { margin-top: 50px; }
+        input, button { padding: 10px; margin: 5px; }
     </style>
 </head>
 <body>
-    <h1 class="Teko-DollarsTxt">DOLLARS</h1>
-    <img class="DollarsImg" src="css/favicon_w3cub/android-chrome-512x512.png" alt="Dollars-img">
-    <div class="chat-container">
+
+    <!-- Password Screen -->
+    <div id="password-screen" class="login-container">
+        <h2>Enter Password</h2>
+        <input type="password" id="password-input" placeholder="Enter password">
+        <button onclick="checkPassword()">Enter</button>
+    </div>
+
+    <!-- Chat Screen (Hidden by Default) -->
+    <div id="chat-screen" class="chat-container hidden">
+        <h1 class="Teko-DollarsTxt">DOLLARS</h1>
+        <img class="DollarsImg" src="css/favicon_w3cub/android-chrome-512x512.png" alt="Dollars-img">
         <div id="messages" class="chat-box"></div>
 
         <div class="input-area">
@@ -23,6 +36,6 @@
         </div>
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script defer src="script.js"></script>
 </body>
 </html>
