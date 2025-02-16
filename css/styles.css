@@ -16,6 +16,10 @@ body {
 
 /* Title styling */
 h1 {
+    font-family: "Teko", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
     color: white;
     text-align: center;
     margin-bottom: 10px;
