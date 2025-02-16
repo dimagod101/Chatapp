@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-const correctPassword = "secret123"; 
+const correctPassword = "Appicalat7&"; 
 
 function checkPassword() {
     const passwordInput = document.getElementById("password-input").value.trim();
