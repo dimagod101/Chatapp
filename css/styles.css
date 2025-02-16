@@ -9,7 +9,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    text-align: center;
 }
 
 /* Title styling */
@@ -105,4 +104,8 @@ button {
 
 .delete-button:hover {
     background: #cc0000;
+}
+
+.DollarsImg {
+    width: 35%;
 }
