@@ -45,6 +45,14 @@ window.sendMessage = function () {
     }
 };
 
+window.deleteMessage = function (messageId) {
+    const messageRef = ref(db, `messages/${messageId}`);
+    if (confirm("Are you sure you want to delete this message?")) {
+        remove(messageRef)
+            .then(() => console.log("Message deleted successfully"))
+            .catch(error => console.error("Error deleting message:", error));
+    }
+};
 
 // Listen for new messages
 onValue(messagesRef, (snapshot) => {
