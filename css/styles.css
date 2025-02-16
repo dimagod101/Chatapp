@@ -122,6 +122,7 @@ button {
 
 .hidden {
     display: none;
+    align: center;
 }
 
 h2 {
