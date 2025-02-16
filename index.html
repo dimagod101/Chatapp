@@ -16,25 +16,22 @@
 </head>
 <body>
 
-    <!-- Password Screen -->
-    <div id="password-screen" class="login-container">
-        <h2>Enter Password</h2>
-        <input type="password" id="password-input" placeholder="Enter password">
-        <button id="password-button">Enter</button>
-    </div>
+<!-- Password Screen -->
+<div id="password-screen">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" placeholder="Enter password">
+    <button id="password-button">Enter</button>
+</div>
 
-    <!-- Chat Screen (Hidden by Default) -->
-    <div id="chat-screen" class="chat-container hidden">
-        <h1 class="Teko-DollarsTxt">DOLLARS</h1>
-        <img class="DollarsImg" src="css/favicon_w3cub/android-chrome-512x512.png" alt="Dollars-img">
-        <div id="messages" class="chat-box"></div>
+<!-- Chat Screen (Hidden by Default) -->
+<div id="chat-screen" class="hidden">
+    <h1>DOLLARS</h1>
+    <div id="messages"></div>
+    <input type="text" id="username" placeholder="Enter your username">
+    <input type="text" id="message" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+</div>
 
-        <div class="input-area">
-            <input type="text" id="username" placeholder="Enter your username">
-            <input type="text" id="message" placeholder="Type a message">
-            <button class="send-button" id="send-button">Send</button>
-        </div>
-    </div>
 
     <script type="module" src="script.js"></script>
 </body>
