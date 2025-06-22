@@ -1,18 +1,15 @@
-import { db, ref, set, get, push, onValue, remove } from "./firebase.js";
+import { db, ref, set, get, push, onValue, remove, auth } from "./firebase.js";
 
 const getSHA256Hash = async (input) => {
   const textAsBuffer = new TextEncoder().encode(input);
   const hashBuffer = await window.crypto.subtle.digest("SHA-256", textAsBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hash = hashArray
-    .map((item) => item.toString(16).padStart(2, "0"))
-    .join("");
+  const hash = hashArray.map((item) => item.toString(16).padStart(2, "0")).join("");
   return hash;
 };
 
 const MASTER_PASSWORD = "0d21c911528176264c20174a7f5eeedbd35990f9e57f7fdbee1422ad396917fb";
 let currentUser = null;
-let currentUID = null;
 
 // DOM Elements
 const loginScreen = document.getElementById("login-screen");
@@ -37,31 +34,24 @@ document.getElementById("register-button").addEventListener("click", registerUse
 async function registerUser() {
   const master = document.getElementById("master-password").value.trim();
   const username = document.getElementById("register-username").value.trim();
-
-  //const password = document.getElementById("register-password").value;
-
-  const clear_password = document.getElementById("register-password").value;
-
-  const password = await getSHA256Hash(clear_password)
-  console.log(password)
+  const password = await getSHA256Hash(document.getElementById("register-password").value);
 
   if (!master || !username || !password) return alert("Fill all fields.");
   if (await getSHA256Hash(master) !== MASTER_PASSWORD) return alert("Incorrect master password.");
 
-  const usersRef = ref(db, "users");
-  const snapshot = await get(usersRef);
+  const userUID = auth.currentUser?.uid;
+  if (!userUID) return alert("User not authenticated.");
 
-  for (const uid in snapshot.val() || {}) {
-    if (snapshot.val()[uid].username === username) {
+  const usersSnapshot = await get(ref(db, "users"));
+  for (const uid in usersSnapshot.val() || {}) {
+    if (usersSnapshot.val()[uid].username === username) {
       return alert("Username already taken.");
     }
   }
 
-  const newUserRef = push(usersRef);
-  await set(newUserRef, { username, password });
+  await set(ref(db, `users/${userUID}`), { username, password });
 
   currentUser = username;
-  currentUID = newUserRef.key;
   enterChat();
 }
 
@@ -71,15 +61,13 @@ async function loginUser() {
 
   if (!username || !password) return alert("Fill all fields.");
 
+  const hashed = await getSHA256Hash(password);
   const usersSnapshot = await get(ref(db, "users"));
+
   for (const uid in usersSnapshot.val() || {}) {
     const user = usersSnapshot.val()[uid];
-
-    // TODO: compare the hash value
-
-    if (user.username === username && user.password === await getSHA256Hash(password)) {
+    if (user.username === username && user.password === hashed) {
       currentUser = username;
-      currentUID = uid;
       enterChat();
       return;
     }
@@ -92,8 +80,11 @@ window.sendMessage = async () => {
   const message = document.getElementById("message").value.trim();
   if (!message) return;
 
+  const uid = auth.currentUser?.uid;
+  if (!uid) return alert("Not authenticated.");
+
   await push(ref(db, "messages"), {
-    uid: currentUID,
+    uid,
     message,
     time: new Date().toLocaleString()
   });
@@ -105,8 +96,8 @@ onValue(ref(db, "messages"), async (snapshot) => {
   const messagesDiv = document.getElementById("messages");
   messagesDiv.innerHTML = "";
 
-  const userCache = {};
   const allUsers = await get(ref(db, "users"));
+  const userCache = {};
   for (const uid in allUsers.val() || {}) {
     userCache[uid] = allUsers.val()[uid].username;
   }
