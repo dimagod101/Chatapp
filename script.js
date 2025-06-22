@@ -1,6 +1,16 @@
 import { db, ref, set, get, push, onValue, remove } from "./firebase.js";
 
-const MASTER_PASSWORD = "Appicalat7&";
+const getSHA256Hash = async (input) => {
+  const textAsBuffer = new TextEncoder().encode(input);
+  const hashBuffer = await window.crypto.subtle.digest("SHA-256", textAsBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hash = hashArray
+    .map((item) => item.toString(16).padStart(2, "0"))
+    .join("");
+  return hash;
+};
+
+const MASTER_PASSWORD = "0d21c911528176264c20174a7f5eeedbd35990f9e57f7fdbee1422ad396917fb";
 let currentUser = null;
 let currentUID = null;
 
@@ -27,10 +37,16 @@ document.getElementById("register-button").addEventListener("click", registerUse
 async function registerUser() {
   const master = document.getElementById("master-password").value.trim();
   const username = document.getElementById("register-username").value.trim();
-  const password = document.getElementById("register-password").value;
+
+  //const password = document.getElementById("register-password").value;
+
+  const clear_password = document.getElementById("register-password").value;
+
+  const password = await getSHA256Hash(clear_password)
+  console.log(password)
 
   if (!master || !username || !password) return alert("Fill all fields.");
-  if (master !== MASTER_PASSWORD) return alert("Incorrect master password.");
+  if (await getSHA256Hash(master) !== MASTER_PASSWORD) return alert("Incorrect master password.");
 
   const usersRef = ref(db, "users");
   const snapshot = await get(usersRef);
@@ -58,6 +74,9 @@ async function loginUser() {
   const usersSnapshot = await get(ref(db, "users"));
   for (const uid in usersSnapshot.val() || {}) {
     const user = usersSnapshot.val()[uid];
+
+    // TODO: compare the hash value
+
     if (user.username === username && user.password === password) {
       currentUser = username;
       currentUID = uid;
