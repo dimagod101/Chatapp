@@ -77,7 +77,7 @@ async function loginUser() {
 
     // TODO: compare the hash value
 
-    if (user.username === username && user.password === password) {
+    if (user.username === username && user.password === await getSHA256Hash(password)) {
       currentUser = username;
       currentUID = uid;
       enterChat();
