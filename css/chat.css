@@ -1,0 +1,119 @@
+/* Chat Page Styling */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #040b1c;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+/* Chat container */
+.chat-container {
+  width: 80%;
+  background: rgba(4, 11, 28, 0);
+  box-shadow: 0px 0px 2px #edf1f2;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Messages section */
+#messages {
+  flex-grow: 1;
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: left;
+  color: black;
+}
+
+/* Individual message styling */
+.message {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  padding: 8px;
+  border-radius: 5px;
+  background: #edf1f2;
+  margin-bottom: 5px;
+}
+
+/* Input area */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Input fields */
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Input focus effect */
+input[type="text"]:focus {
+  border-color: #007bff;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Send button styling */
+.send-button {
+  background: #007bff;
+  color: white;
+  margin-top: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  align-self: center;
+}
+
+.send-button:hover {
+  background: #0056b3;
+}
+
+/* Delete button */
+.delete-button {
+  background: #ff4d4d;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 3px;
+}
+
+.delete-button:hover {
+  background: #cc0000;
+}
+
+.DollarsImg {
+  width: 55%;
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+.hidden {
+  display: none;
+  align: center;
+}

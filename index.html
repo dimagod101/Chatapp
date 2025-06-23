@@ -1,50 +1,20 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DOLLARS</title>
-  <link rel="stylesheet" href="css/styles.css"/>
-  <link rel="icon" href="css/favicon_w3cub/favicon.ico"/>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
-    body { font-family: Arial, sans-serif; text-align: center; }
-    .hidden { display: none; }
-    .login-container, .chat-container { margin-top: 50px; }
-    input, button { padding: 10px; margin: 5px; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
+  <div id="login-screen">
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="Username" />
+    <input type="password" id="login-password" placeholder="Password" />
+    <button id="login-button">Login</button>
+    <p><a href="register.html" id="go-to-register">Create Account</a></p>
+  </div>
 
-<!-- Login Screen -->
-<div id="login-screen">
-  <h2>Login</h2>
-  <input type="text" id="login-username" placeholder="Username" />
-  <input type="password" id="login-password" placeholder="Password" />
-  <button id="login-button">Login</button>
-  <p><a href="#" id="go-to-register">Create Account</a></p>
-</div>
-
-<!-- Register Screen -->
-<div id="register-screen" class="hidden">
-  <h2>Create Account</h2>
-  <input type="password" id="master-password" placeholder="Master Password" />
-  <input type="text" id="register-username" placeholder="Choose a username" />
-  <input type="password" id="register-password" placeholder="Choose a password" />
-  <button id="register-button">Register</button>
-  <p><a href="#" id="back-to-login">← Back to Login</a></p>
-</div>
-
-<!-- Chat Screen -->
-<div id="chat-screen" class="hidden">
-  <h1>DOLLARS</h1>
-  <img class="DollarsImg" src="css/favicon_w3cub/android-chrome-512x512.png" alt="Dollars-img" />
-  <div id="messages"></div>
-  <input type="text" id="message" placeholder="Type a message" />
-  <button class="send-button" onclick="sendMessage()">Send</button>
-</div>
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

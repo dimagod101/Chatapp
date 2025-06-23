@@ -1,0 +1,85 @@
+/* Register Page Styling */
+
+body {
+  font-family: Arial, sans-serif;
+    background-color: #040b1c;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 2rem;
+}
+
+#register-screen {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  background-color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#register-screen input {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+#register-screen input:focus {
+  border-color: #4f46e5;
+}
+
+#register-button {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.75rem;
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  margin-top: 0.5rem;
+}
+
+#register-button:hover {
+  background-color: #4338ca;
+}
+
+#back-to-login {
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#back-to-login:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}

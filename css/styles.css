@@ -4,144 +4,134 @@ body {
     background-color: #040b1c;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
-}
-
-/* Title styling */
-h1 {
-    font-family: "Teko", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: white;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 3%;
-    font-size: 300%
-}
-
-/* Chat container */
-.chat-container {
-    width: 80%;
-    background: rgba(4, 11, 28, 0);
-    box-shadow: 0px 0px 2px #edf1f2;
-    padding: 20px;
-    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-}
-
-/* Messages section */
-#messages {
-    flex-grow: 1;
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    padding: 10px;
-    background: white;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-/* Individual message styling */
-.message {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-    padding: 8px;
-    border-radius: 5px;
-    background: #edf1f2;
-    margin-bottom: 5px;
-}
-
-/* Input area */
-.input-area {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-/* Input fields */
-input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-}
-
-/* Input focus effect */
-input[type="text"]:focus {
-    border-color: #007bff;
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Send button styling */
-.send-button {
-    background: #007bff;
-    color: white;
-    margin-top: 5px;
-    margin-left: 0px;
-    margin-right: 0px;
-    align-self: center;
-}
-
-.send-button:hover {
-    background: #0056b3;
-}
-
-/* Delete button */
-.delete-button {
-    background: #ff4d4d;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 3px;
-}
-
-.delete-button:hover {
-    background: #cc0000;
-}
-
-.DollarsImg {
-    width: 55%;
-    margin-bottom: 20px;
-    align-self: center;
-}
-
-.hidden {
-    display: none;
-    align: center;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
 }
 
 h2 {
-    font-family: "Teko", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: white;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 3%;
-    font-size: 300%
-}
-.password {
-    width: 30;
-    align-self: center;
+    color:#fff;
 }
 
-    
+/* Login screen styling */
+#login-screen {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Login title */
+#login-screen h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Inputs */
+#login-screen input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Login button */
+#login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+#login-button:hover {
+    background-color: #4338ca;
+}
+
+/* Register link */
+#go-to-register {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #4f46e5;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+#go-to-register:hover {
+    text-decoration: underline;
+}
+
+/* Register screen styling (same as login) */
+#register-screen {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: #1a1a2e;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: white;
+}
+
+
+#register-screen h2 {
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+#register-screen input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: #2e2e3a;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+#register-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+#register-button:hover {
+  background-color: #4338ca;
+}
+
+#back-to-login {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+#back-to-login:hover {
+  text-decoration: underline;
+}
