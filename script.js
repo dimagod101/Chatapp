@@ -92,6 +92,15 @@ window.sendMessage = async () => {
   document.getElementById("message").value = "";
 };
 
+window.deleteMessage = function (messageId) {
+  const messageRef = ref(db, `messages/${messageId}`);
+  if (confirm("Are you sure you want to delete this message?")) {
+    remove(messageRef)
+      .then(() => console.log("Message deleted successfully"))
+      .catch((error) => console.error("Error deleting message:", error));
+  }
+};
+
 onValue(ref(db, "messages"), async (snapshot) => {
   const messagesDiv = document.getElementById("messages");
   messagesDiv.innerHTML = "";
@@ -102,12 +111,24 @@ onValue(ref(db, "messages"), async (snapshot) => {
     userCache[uid] = allUsers.val()[uid].username;
   }
 
+  const currentUID = auth.currentUser?.uid;
+
   for (const messageId in snapshot.val() || {}) {
     const msgData = snapshot.val()[messageId];
     const username = userCache[msgData.uid] || "Unknown";
 
     const msg = document.createElement("p");
     msg.textContent = `${username}: "${msgData.message}" , ${msgData.time}`;
+
+    // ✅ Add delete button if current user sent the message
+    if (msgData.uid === currentUID) {
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "❌";
+      deleteButton.style.marginLeft = "10px";
+      deleteButton.onclick = () => deleteMessage(messageId);
+      msg.appendChild(deleteButton);
+    }
+
     messagesDiv.appendChild(msg);
   }
 
