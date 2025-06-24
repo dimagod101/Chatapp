@@ -71,6 +71,7 @@ async function loginUser() {
     const user = usersSnapshot.val()[uid];
     if (user.username === username && user.password === hashed) {
       currentUser = username;
+      sessionStorage.setItem("dc89bc9e-348a-475b-9e68-b04be0b27e1c", "6bd32144-8f15-488c-8af2-630eba51fb5c");
       window.location.href = "chat.html";
       return;
     }
