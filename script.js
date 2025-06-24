@@ -1,4 +1,5 @@
 import { db, ref, set, get, push, onValue, remove, auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"; // or your version
 
 // Utility: Hash function
 const getSHA256Hash = async (input) => {
@@ -78,43 +79,52 @@ async function loginUser() {
   alert("Invalid credentials.");
 }
 
-// Setup chat screen
+// Setup chat screen after confirming auth state
 function setupChat() {
-  const currentUID = auth.currentUser?.uid;
   const messagesDiv = document.getElementById("messages");
-
   if (!messagesDiv) return;
 
-  // Load & listen for messages
-  onValue(ref(db, "messages"), async (snapshot) => {
-    messagesDiv.innerHTML = "";
-
-    const users = (await get(ref(db, "users"))).val() || {};
-    const userCache = {};
-    for (const uid in users) {
-      userCache[uid] = users[uid].username;
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      alert("You must be logged in.");
+      window.location.href = "index.html";
+      return;
     }
 
-    const data = snapshot.val() || {};
-    for (const messageId in data) {
-      const msgData = data[messageId];
-      const username = userCache[msgData.uid] || "Unknown";
+    const currentUID = user.uid;
 
-      const msg = document.createElement("p");
-      msg.textContent = `${username}: "${msgData.message}" , ${msgData.time}`;
+    // Load & listen for messages
+    onValue(ref(db, "messages"), async (snapshot) => {
+      messagesDiv.innerHTML = "";
 
-      if (msgData.uid === currentUID) {
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "❌";
-        deleteButton.style.marginLeft = "10px";
-        deleteButton.onclick = () => deleteMessage(messageId);
-        msg.appendChild(deleteButton);
+      const users = (await get(ref(db, "users"))).val() || {};
+      const userCache = {};
+      for (const uid in users) {
+        userCache[uid] = users[uid].username;
       }
 
-      messagesDiv.appendChild(msg);
-    }
+      const data = snapshot.val() || {};
+      for (const messageId in data) {
+        const msgData = data[messageId];
+        const username = userCache[msgData.uid] || "Unknown";
 
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        const msg = document.createElement("p");
+        msg.textContent = `${username}: "${msgData.message}" , ${msgData.time}`;
+        
+        // Show delete button for own messages
+        if (msgData.uid === currentUID) {
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "❌";
+          deleteButton.style.marginLeft = "10px";
+          deleteButton.onclick = () => deleteMessage(messageId);
+          msg.appendChild(deleteButton);
+        }
+
+        messagesDiv.appendChild(msg);
+      }
+
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
   });
 }
 
