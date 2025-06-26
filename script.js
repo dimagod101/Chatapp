@@ -1,7 +1,8 @@
-import { db, ref, set, get, push, onValue, remove, auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"; // or your version
+import {
+  db, ref, set, get, push, onValue, remove,
+  auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged
+} from "./firebase.js";
 
-// Utility: Hash function
 const getSHA256Hash = async (input) => {
   const buffer = new TextEncoder().encode(input);
   const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
@@ -10,22 +11,19 @@ const getSHA256Hash = async (input) => {
 };
 
 const MASTER_PASSWORD = "0d21c911528176264c20174a7f5eeedbd35990f9e57f7fdbee1422ad396917fb";
-let currentUser = null;
 
-// Run logic based on page
+// Page routing logic
 document.addEventListener("DOMContentLoaded", () => {
   const isLoginPage = window.location.pathname.includes("index.html");
   const isRegisterPage = window.location.pathname.includes("register.html");
   const isChatPage = window.location.pathname.includes("chat.html");
 
   if (isLoginPage) {
-    const loginBtn = document.getElementById("login-button");
-    if (loginBtn) loginBtn.addEventListener("click", loginUser);
+    document.getElementById("login-button")?.addEventListener("click", loginUser);
   }
 
   if (isRegisterPage) {
-    const registerBtn = document.getElementById("register-button");
-    if (registerBtn) registerBtn.addEventListener("click", registerUser);
+    document.getElementById("register-button")?.addEventListener("click", registerUser);
   }
 
   if (isChatPage) {
@@ -33,54 +31,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Register user
+// Register new user
 async function registerUser() {
   const master = document.getElementById("master-password").value.trim();
   const username = document.getElementById("register-username").value.trim();
-  const password = await getSHA256Hash(document.getElementById("register-password").value);
+  const password = document.getElementById("register-password").value;
 
   if (!master || !username || !password) return alert("Fill all fields.");
   if (await getSHA256Hash(master) !== MASTER_PASSWORD) return alert("Incorrect master password.");
 
-  const userUID = auth.currentUser?.uid;
-  if (!userUID) return alert("User not authenticated.");
+  const email = `${username}@myapp.local`;
 
-  const usersSnapshot = await get(ref(db, "users"));
-  for (const uid in usersSnapshot.val() || {}) {
-    if (usersSnapshot.val()[uid].username === username) {
-      return alert("Username already taken.");
-    }
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
+
+    // Store only the username in the DB, NOT the password
+    await set(ref(db, `users/${uid}`), { username });
+
+    window.location.href = "chat.html";
+  } catch (error) {
+    console.error("Register error:", error);
+    alert("Registration failed: " + error.message);
   }
-
-  await set(ref(db, `users/${userUID}`), { username, password });
-  currentUser = username;
-  window.location.href = "chat.html";
 }
 
-// Login user
+// Login existing user
 async function loginUser() {
   const username = document.getElementById("login-username").value.trim();
   const password = document.getElementById("login-password").value;
 
   if (!username || !password) return alert("Fill all fields.");
 
-  const hashed = await getSHA256Hash(password);
-  const usersSnapshot = await get(ref(db, "users"));
+  const email = `${username}@myapp.local`;
 
-  for (const uid in usersSnapshot.val() || {}) {
-    const user = usersSnapshot.val()[uid];
-    if (user.username === username && user.password === hashed) {
-      currentUser = username;
-      sessionStorage.setItem("dc89bc9e-348a-475b-9e68-b04be0b27e1c", "6bd32144-8f15-488c-8af2-630eba51fb5c");
-      window.location.href = "chat.html";
-      return;
-    }
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    sessionStorage.setItem("dc89bc9e-348a-475b-9e68-b04be0b27e1c", "6bd32144-8f15-488c-8af2-630eba51fb5c");
+    window.location.href = "chat.html";
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Invalid credentials: " + error.message);
   }
-
-  alert("Invalid credentials.");
 }
 
-// Setup chat screen after confirming auth state
+// Setup chat interface for authenticated users
 function setupChat() {
   const messagesDiv = document.getElementById("messages");
   if (!messagesDiv) return;
@@ -111,8 +106,7 @@ function setupChat() {
 
         const msg = document.createElement("p");
         msg.textContent = `${username}: "${msgData.message}" , ${msgData.time}`;
-        
-        // Show delete button for own messages
+
         if (msgData.uid === currentUID) {
           const deleteButton = document.createElement("button");
           deleteButton.textContent = "❌";
@@ -129,7 +123,7 @@ function setupChat() {
   });
 }
 
-// Send message (attachable to button in HTML)
+// Send message to database
 window.sendMessage = async () => {
   const input = document.getElementById("message");
   const message = input?.value.trim();
@@ -147,12 +141,12 @@ window.sendMessage = async () => {
   input.value = "";
 };
 
-// Delete message
+// Delete message by ID
 window.deleteMessage = (messageId) => {
   const messageRef = ref(db, `messages/${messageId}`);
   if (confirm("Are you sure you want to delete this message?")) {
     remove(messageRef)
-      .then(() => console.log("Message deleted successfully"))
+      .then(() => console.log("Message deleted"))
       .catch((error) => console.error("Error deleting message:", error));
   }
 };

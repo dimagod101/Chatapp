@@ -1,6 +1,5 @@
 // firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-
 import {
   getDatabase,
   ref,
@@ -13,7 +12,8 @@ import {
 
 import {
   getAuth,
-  signInAnonymously,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -30,43 +30,20 @@ const firebaseConfig = {
 
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// ✅ Initialize Services
 const db = getDatabase(app);
 const auth = getAuth(app);
-
-// ✅ References
-const messagesRef = ref(db, "messages");
-const usersRef = ref(db, "users");
-
-// ✅ Anonymous Auth
-signInAnonymously(auth)
-  .then(() => {
-    console.log("Signed in anonymously.");
-  })
-  .catch((error) => {
-    console.error("Anonymous auth error:", error.code, error.message);
-  });
-
-// ✅ Auth State Listener
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Authenticated user ID:", user.uid);
-  } else {
-    console.log("User signed out.");
-  }
-});
 
 // ✅ Exported API
 export {
   db,
-  messagesRef,
-  usersRef,
-  auth,
   ref,
   push,
   onValue,
   remove,
   get,
-  set
+  set,
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
 };
