@@ -1,6 +1,6 @@
 import {
   db, ref, set, get, push, onValue, remove,
-  auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged
+  auth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged
 } from "./firebase.js";
 
 const getSHA256Hash = async (input) => {
@@ -75,11 +75,23 @@ async function loginUser() {
   }
 }
 
-// logout
-function logout() {
-  sessionStorage.clear()
-}
-
+// Logout current user
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logout-button");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          sessionStorage.clear();
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          console.error("Sign-out error:", error);
+          alert("Logout failed.");
+        });
+    });
+  }
+});
 
 // Setup chat interface for authenticated users
 function setupChat() {
@@ -156,4 +168,3 @@ window.deleteMessage = (messageId) => {
       .catch((error) => console.error("Error deleting message:", error));
   }
 };
-
