@@ -75,6 +75,12 @@ async function loginUser() {
   }
 }
 
+// logout
+function logout() {
+  sessionStorage.clear()
+}
+
+
 // Setup chat interface for authenticated users
 function setupChat() {
   const messagesDiv = document.getElementById("messages");
@@ -150,3 +156,4 @@ window.deleteMessage = (messageId) => {
       .catch((error) => console.error("Error deleting message:", error));
   }
 };
+

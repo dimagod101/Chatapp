@@ -22,6 +22,7 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  padding-top: 30px
 }
 
 /* Messages section */
@@ -107,13 +108,27 @@ button {
   background: #cc0000;
 }
 
-.DollarsImg {
-  width: 55%;
-  margin-bottom: 20px;
-  align-self: center;
-}
-
 .hidden {
   display: none;
   align: center;
+}
+#logout-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#logout-button:hover {
+  background-color: #e60000;
 }
