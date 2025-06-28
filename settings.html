@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+    <h1>Settings</h1>
+<div id="settings-screen">
+    <h2>Account</h2>
+    <button id="uploadAvatar-button">Upload Avatar</button>
+    <div>
+        <input type="text" id="old-username" placeholder="Current Username" />
+        <input type="text" id="new-username" placeholder="New Username" />
+        <button id="changeUsername-button">Change Username</button>
+    </div>
+    <div>
+        <input type="text" id="old-password" placeholder="Current Password" />
+        <input type="text" id="new-Password" placeholder="New Password" />
+        <input type="text" id="newAgain-password" placeholder="Repeat New Password" />
+        <button id="changePassword-button">Change Password</button>  
+    </div>
+    <p><a href="chat.html" id="go-to-chat">back</a></p>
+  </div>
+</body>
+</html>
+
+<script>
+  if (sessionStorage.getItem("dc89bc9e-348a-475b-9e68-b04be0b27e1c") !== "6bd32144-8f15-488c-8af2-630eba51fb5c") {
+    window.location.href = "index.html";
+  }
+</script>
