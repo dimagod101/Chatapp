@@ -27,7 +27,7 @@ async function registerUser() {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
 
-    // Store only the username in the DB, NOT the password
+    // Store the username in the DB
     await set(ref(db, `users/${uid}`), { username });
 
     window.location.href = "index.html";
