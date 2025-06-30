@@ -15,7 +15,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  updateProfile, 
+  updatePassword, 
+  reauthenticateWithCredential, 
+  EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 // ✅ Firebase config
@@ -47,5 +51,10 @@ export {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  getAuth, 
+  updateProfile, 
+  updatePassword, 
+  reauthenticateWithCredential, 
+  EmailAuthProvider
 };

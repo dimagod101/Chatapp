@@ -17,16 +17,16 @@
         <button id="changeUsername-button">Change Username</button>
     </div>
     <div>
-        <input type="text" id="old-password" placeholder="Current Password" />
-        <input type="text" id="new-Password" placeholder="New Password" />
-        <input type="text" id="newAgain-password" placeholder="Repeat New Password" />
+        <input type="password" id="old-password" placeholder="Current Password" />
+        <input type="password" id="new-Password" placeholder="New Password" />
+        <input type="password" id="newAgain-password" placeholder="Repeat New Password" />
         <button id="changePassword-button">Change Password</button>  
     </div>
     <p><a href="chat.html" id="go-to-chat">back</a></p>
   </div>
 </body>
 </html>
-
+<script type="module" src="settings.js"></script>
 <script>
   if (sessionStorage.getItem("dc89bc9e-348a-475b-9e68-b04be0b27e1c") !== "6bd32144-8f15-488c-8af2-630eba51fb5c") {
     window.location.href = "index.html";
