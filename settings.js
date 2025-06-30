@@ -1,27 +1,21 @@
 import {
-  getAuth, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider
+  db, auth, ref, get, onValue, EmailAuthProvider, child, push, update, reauthenticateWithCredential, updatePassword
 } from "./firebase.js";
-
-const auth = getAuth();
-
-// Avatar Upload (Placeholder functionality)
-document.getElementById('uploadAvatar-button').addEventListener('click', () => {
-    alert('Avatar upload feature coming soon!');
-});
 
 // Change Username
 document.getElementById('changeUsername-button').addEventListener('click', async () => {
     const oldUsername = document.getElementById('old-username').value.trim();
     const newUsername = document.getElementById('new-username').value.trim();
-
     if (!oldUsername || !newUsername) {
-        alert('Please fill in both username fields.');
+        alert('Please fill in all fields.');
         return;
     }
 
-    const user = auth.currentUser
-    if (user.email === oldUsername + "@myapp.local") {
+    const user = auth.currentUser;
+    const userRef = (await get(ref(db, `users/${user.uid}/username`))).val();
+    if (userRef === oldUsername) {
         try {
+            await update(ref(db, `users/${user.uid}`), { username: newUsername });
             alert('Username successfully changed!');
         } catch (error) {
             alert('Error updating username: ' + error.message);
@@ -30,6 +24,7 @@ document.getElementById('changeUsername-button').addEventListener('click', async
         alert('Current username does not match logged in user.');
     }
 });
+
 
 // Change Password
 document.getElementById('changePassword-button').addEventListener('click', async () => {
@@ -51,6 +46,8 @@ document.getElementById('changePassword-button').addEventListener('click', async
     const credential = EmailAuthProvider.credential(user.email, oldPassword);
 
     try {
+        await reauthenticateWithCredential(user, credential);
+        await updatePassword(user, newPassword);
         alert('Password successfully changed!');
     } catch (error) {
         alert('Error changing password: ' + error.message);

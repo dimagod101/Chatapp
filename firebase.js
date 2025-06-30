@@ -7,7 +7,9 @@ import {
   onValue,
   remove,
   get,
-  set
+  set,
+  child,
+  update
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 import {
@@ -18,6 +20,7 @@ import {
   signOut,
   updateProfile, 
   updatePassword, 
+  updateEmail,
   reauthenticateWithCredential, 
   EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
@@ -56,5 +59,9 @@ export {
   updateProfile, 
   updatePassword, 
   reauthenticateWithCredential, 
-  EmailAuthProvider
+  EmailAuthProvider,
+  child,
+  update,
+  updateEmail
+
 };
